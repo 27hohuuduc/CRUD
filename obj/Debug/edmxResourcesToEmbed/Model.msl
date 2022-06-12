@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CRUDModelStoreContainer" CdmEntityContainer="CRUDEntities">
+    <EntitySetMapping Name="Companies">
+      <EntityTypeMapping TypeName="CRUDModel.Company">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="IdC" ColumnName="IdC" />
+          <ScalarProperty Name="NameC" ColumnName="NameC" />
+          <ScalarProperty Name="Infor" ColumnName="Infor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Staffs">
+      <EntityTypeMapping TypeName="CRUDModel.Staff">
+        <MappingFragment StoreEntitySet="Staff">
+          <ScalarProperty Name="IdS" ColumnName="IdS" />
+          <ScalarProperty Name="NameS" ColumnName="NameS" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddCompany" FunctionName="CRUDModel.Store.AddCompany" />
+    <FunctionImportMapping FunctionImportName="AddStaff" FunctionName="CRUDModel.Store.AddStaff" />
+    <FunctionImportMapping FunctionImportName="DelCompany" FunctionName="CRUDModel.Store.DelCompany" />
+    <FunctionImportMapping FunctionImportName="DelStaff" FunctionName="CRUDModel.Store.DelStaff" />
+    <FunctionImportMapping FunctionImportName="EditCompany" FunctionName="CRUDModel.Store.EditCompany" />
+    <FunctionImportMapping FunctionImportName="EditStaff" FunctionName="CRUDModel.Store.EditStaff" />
+  </EntityContainerMapping>
+</Mapping>

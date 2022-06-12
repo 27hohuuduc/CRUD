@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CRUDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="IdC" />
+    </Key>
+    <Property Name="IdC" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="NameC" Type="nvarchar" MaxLength="50" />
+    <Property Name="Infor" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Staff">
+    <Key>
+      <PropertyRef Name="IdS" />
+    </Key>
+    <Property Name="IdS" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="NameS" Type="nvarchar" MaxLength="30" />
+    <Property Name="Company" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <Association Name="FK__Staff__Company__267ABA7A">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="IdC" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="Company" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="AddCompany" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NameC" Type="nvarchar" Mode="In" />
+    <Parameter Name="Infor" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Id" Type="varchar" Mode="InOut" />
+  </Function>
+  <Function Name="AddStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NameS" Type="nvarchar" Mode="In" />
+    <Parameter Name="Company" Type="varchar" Mode="In" />
+    <Parameter Name="Id" Type="varchar" Mode="InOut" />
+  </Function>
+  <Function Name="DelCompany" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="DelStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdS" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="EditCompany" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdC" Type="varchar" Mode="In" />
+    <Parameter Name="NameC" Type="nvarchar" Mode="In" />
+    <Parameter Name="Infor" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="EditStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdS" Type="varchar" Mode="In" />
+    <Parameter Name="NameS" Type="nvarchar" Mode="In" />
+    <Parameter Name="Company" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <EntityContainer Name="CRUDModelStoreContainer">
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Staff__Company__267ABA7A" Association="Self.FK__Staff__Company__267ABA7A">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Staff" EntitySet="Staff" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

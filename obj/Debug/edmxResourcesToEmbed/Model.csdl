@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CRUDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="IdC" />
+    </Key>
+    <Property Name="IdC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NameC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Infor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Staffs" Relationship="Self.FK__Staff__Company__267ABA7A" FromRole="Company" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="Staff">
+    <Key>
+      <PropertyRef Name="IdS" />
+    </Key>
+    <Property Name="IdS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NameS" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Company" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Company1" Relationship="Self.FK__Staff__Company__267ABA7A" FromRole="Staff" ToRole="Company" />
+  </EntityType>
+  <Association Name="FK__Staff__Company__267ABA7A">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="IdC" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="Company" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CRUDEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Companies" EntityType="Self.Company" />
+    <EntitySet Name="Staffs" EntityType="Self.Staff" />
+    <AssociationSet Name="FK__Staff__Company__267ABA7A" Association="Self.FK__Staff__Company__267ABA7A">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Staff" EntitySet="Staffs" />
+    </AssociationSet>
+    <FunctionImport Name="AddCompany">
+      <Parameter Name="NameC" Mode="In" Type="String" />
+      <Parameter Name="Infor" Mode="In" Type="String" />
+      <Parameter Name="Id" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddStaff">
+      <Parameter Name="NameS" Mode="In" Type="String" />
+      <Parameter Name="Company" Mode="In" Type="String" />
+      <Parameter Name="Id" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DelCompany">
+      <Parameter Name="IdC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DelStaff">
+      <Parameter Name="IdS" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EditCompany">
+      <Parameter Name="IdC" Mode="In" Type="String" />
+      <Parameter Name="NameC" Mode="In" Type="String" />
+      <Parameter Name="Infor" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EditStaff">
+      <Parameter Name="IdS" Mode="In" Type="String" />
+      <Parameter Name="NameS" Mode="In" Type="String" />
+      <Parameter Name="Company" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CRUDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="IdC" />
+          </Key>
+          <Property Name="IdC" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="NameC" Type="nvarchar" MaxLength="50" />
+          <Property Name="Infor" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="IdS" />
+          </Key>
+          <Property Name="IdS" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="NameS" Type="nvarchar" MaxLength="30" />
+          <Property Name="Company" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK__Staff__Company__267ABA7A">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="IdC" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddCompany" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NameC" Type="nvarchar" Mode="In" />
+          <Parameter Name="Infor" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Id" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="AddStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NameS" Type="nvarchar" Mode="In" />
+          <Parameter Name="Company" Type="varchar" Mode="In" />
+          <Parameter Name="Id" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="DelCompany" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdC" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="DelStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdS" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="EditCompany" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdC" Type="varchar" Mode="In" />
+          <Parameter Name="NameC" Type="nvarchar" Mode="In" />
+          <Parameter Name="Infor" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="EditStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdS" Type="varchar" Mode="In" />
+          <Parameter Name="NameS" Type="nvarchar" Mode="In" />
+          <Parameter Name="Company" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="CRUDModelStoreContainer">
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Staff__Company__267ABA7A" Association="Self.FK__Staff__Company__267ABA7A">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CRUDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="IdC" />
+          </Key>
+          <Property Name="IdC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NameC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Infor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Staffs" Relationship="Self.FK__Staff__Company__267ABA7A" FromRole="Company" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="IdS" />
+          </Key>
+          <Property Name="IdS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NameS" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Company1" Relationship="Self.FK__Staff__Company__267ABA7A" FromRole="Staff" ToRole="Company" />
+        </EntityType>
+        <Association Name="FK__Staff__Company__267ABA7A">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="IdC" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CRUDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <AssociationSet Name="FK__Staff__Company__267ABA7A" Association="Self.FK__Staff__Company__267ABA7A">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Staff" EntitySet="Staffs" />
+          </AssociationSet>
+          <FunctionImport Name="AddCompany">
+            <Parameter Name="NameC" Mode="In" Type="String" />
+            <Parameter Name="Infor" Mode="In" Type="String" />
+            <Parameter Name="Id" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddStaff">
+            <Parameter Name="NameS" Mode="In" Type="String" />
+            <Parameter Name="Company" Mode="In" Type="String" />
+            <Parameter Name="Id" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DelCompany">
+            <Parameter Name="IdC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DelStaff">
+            <Parameter Name="IdS" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="EditCompany">
+            <Parameter Name="IdC" Mode="In" Type="String" />
+            <Parameter Name="NameC" Mode="In" Type="String" />
+            <Parameter Name="Infor" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="EditStaff">
+            <Parameter Name="IdS" Mode="In" Type="String" />
+            <Parameter Name="NameS" Mode="In" Type="String" />
+            <Parameter Name="Company" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CRUDModelStoreContainer" CdmEntityContainer="CRUDEntities">
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="CRUDModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="IdC" ColumnName="IdC" />
+                <ScalarProperty Name="NameC" ColumnName="NameC" />
+                <ScalarProperty Name="Infor" ColumnName="Infor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="CRUDModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="IdS" ColumnName="IdS" />
+                <ScalarProperty Name="NameS" ColumnName="NameS" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddCompany" FunctionName="CRUDModel.Store.AddCompany" />
+          <FunctionImportMapping FunctionImportName="AddStaff" FunctionName="CRUDModel.Store.AddStaff" />
+          <FunctionImportMapping FunctionImportName="DelCompany" FunctionName="CRUDModel.Store.DelCompany" />
+          <FunctionImportMapping FunctionImportName="DelStaff" FunctionName="CRUDModel.Store.DelStaff" />
+          <FunctionImportMapping FunctionImportName="EditCompany" FunctionName="CRUDModel.Store.EditCompany" />
+          <FunctionImportMapping FunctionImportName="EditStaff" FunctionName="CRUDModel.Store.EditStaff" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
